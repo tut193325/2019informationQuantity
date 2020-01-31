@@ -41,6 +41,26 @@ public class InformationEstimator implements InformationEstimatorInterface{
     }
 
     public double estimation(){
+	double [] Iq = new double[myTarget.length];
+	double value1 = (double) 0.0;
+	for( int i = 0 ; i < myTarget.length ; i++ ){
+		for( int j = 0 ; j <= i ; j++ ){
+			if(j == 0){
+				myFrequencer.setTarget(subBytes(myTarget, j, i+1));
+				value1 = iq(myFrequencer.frequency());
+				Iq[i] = value1;
+			}else{
+				myFrequencer.setTarget(subBytes(myTarget, j, i+1));
+				value1 = Iq[j-1] + iq(myFrequencer.frequency());
+				if(Iq[i] > value1) Iq[i] = value1;
+			}
+		}
+		// System.out.printf("i = %d, Iq[i] = %f\n",i,Iq[i]);
+	}
+	return Iq[myTarget.length-1];
+
+	/*
+
 	boolean [] partition = new boolean[myTarget.length+1];
 	int np;
 	np = 1<<(myTarget.length-1);
@@ -81,6 +101,8 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    if(value1 < value) value = value1;
 	}
 	return value;
+
+	*/
     }
 
     public static void main(String[] args) {
