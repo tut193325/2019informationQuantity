@@ -62,41 +62,6 @@ public class Frequencer implements FrequencerInterface{
         // if suffix_i < suffix_j, it returns -1
         // if suffix_i = suffix_j, it returns 0;
         
-
-        // int n1 = suffixArray[i];
-        // int n2 = suffixArray[j];
-        // while(n1<mySpace.length && n2<mySpace.length){
-        //     if(mySpace[n1] > mySpace[n2]){
-        //         return 1;
-        //     }else if(mySpace[n1] < mySpace[n2]){
-        //         return -1;
-        //     }
-        //     n1++;
-        //     n2++;
-        // }
-        // if(n2>=mySpace.length){
-        //     return 1;
-        // }
-        
-        // //
-        // return 0; // この行は変更しなければいけない。
-
-
-
-        // int length = mySpace.length - Math.max(i, j);
-
-        // for (int x = 0; x < length; x++) {
-        //     int diff = mySpace[x + i] - mySpace[x + j];
-        //     if (diff > 0) return 1;
-        //     else if (diff < 0) return -1;
-        // }
-
-        // if (i < j) return 1;
-        // else if (i > j) return -1;
-        // else return 0;
-
-
-
         // ここにコードを記述せよ
         int n1 = i;
         int n2 = j;
@@ -132,6 +97,7 @@ public class Frequencer implements FrequencerInterface{
         // ここに、int suffixArrayをソートするコードを書け。
         quickSort(suffixArray, 0, suffixArray.length-1);
 
+        // バブルソート
         // for(int i = 0; i < mySpace.length-1; i++){
         //     for(int j = mySpace.length-1; j>i; j--){
         //         if(suffixCompare(j-1,j)==1){
@@ -145,10 +111,7 @@ public class Frequencer implements FrequencerInterface{
     }
 
     // setSpaceのためのクイックソートの関数
-    private void quickSort(int[] d, int left, int right) {////////////問題あり
-        // printSuffixArray(); 
-        // System.out.println("left:"+left);
-        // System.out.println("right:"+right);
+    private void quickSort(int[] d, int left, int right) {
         if (left>=right) {
             return;
         }
@@ -166,41 +129,6 @@ public class Frequencer implements FrequencerInterface{
         quickSort(d, l, right);
     }
 
-
-    // void quickSort(int[] array, int left, int right){
-    //     int index = partition(array, left, right);
-    //     if(left < index - 1){
-    //         quickSort(array, left, index - 1);
-    //     }
-    //     if(index < right){
-    //         quickSort(array, index, right);
-    //     }
-    // }
-    
-    // int partition(int[] array, int left, int right){
-    //     int pivot = (left + right)/2;
-    //     while (left < right) {
-    //         while (suffixCompare(left,pivot)==-1) left++; // array[left] < array[pivot]
-    //         while(suffixCompare(left,pivot)==1) right--; // array[right] > array[pivot]
-    //         if(left <= right){
-    //             int tmp = array[left];
-    //             array[left] = array[right];
-    //             array[right] = tmp;
-    //             left ++;
-    //             right --;
-    //         }
-    //     }
-    //     return left;
-    // }
-
-
-
-
-
-
-
-
-    
     // Suffix Arrayを用いて、文字列の頻度を求めるコード
     // ここから、指定する範囲のコードは変更してはならない。
     
@@ -269,12 +197,6 @@ public class Frequencer implements FrequencerInterface{
             n1++;
             n2++;
         }
-        //
-        /*
-        if(n1==suffixArray.length && n2==k){
-            return 0;
-        }else 
-        */
         if(n1 == suffixArray.length && n2<k){
             return -1;
         }else if(n1<suffixArray.length && n2 == k){
@@ -311,8 +233,8 @@ public class Frequencer implements FrequencerInterface{
         // ここにコードを記述せよ。
         //
 
+        // 走査
         // int startIndex = suffixArray.length; // startが見つからずにfor文を抜けた時のための初期値
-        
         // for(int i = 0; i < suffixArray.length; i++){
         //     if(0==targetCompare(i,start,end)){
         //         startIndex = i;
@@ -320,7 +242,6 @@ public class Frequencer implements FrequencerInterface{
         //     }
         // }
         // return startIndex;
-        
 
         //　二分探索
         int left = -1;
@@ -331,7 +252,6 @@ public class Frequencer implements FrequencerInterface{
             if (-1!=targetCompare(mid,start,end)) right = mid;
             else left = mid;
         }
-        // System.out.println("startIndex:"+right);//////////////////////
         return right;
     }
     
@@ -361,6 +281,7 @@ public class Frequencer implements FrequencerInterface{
         //　ここにコードを記述せよ
         //
 
+        // 走査
         // int endIndex = suffixArray.length; // endが見つからずにfor文を抜けた時のための初期値
         // for(int i = suffixArray.length; i>0; i--){
         //     if(0==targetCompare(i-1,start,end)){
@@ -368,9 +289,7 @@ public class Frequencer implements FrequencerInterface{
         //         break;
         //     }
         // }
-        // //System.out.println("endIndex:"+endIndex);/////////////////////
         // return endIndex;
-
 
         //　二分探索
         int left = -1;
@@ -381,7 +300,6 @@ public class Frequencer implements FrequencerInterface{
             if (1!=targetCompare(mid,start,end)) left = mid;
             else right = mid;
         }
-        // System.out.println("endIndex:"+right);////////////////////////
         return right;
         
     }
@@ -402,6 +320,7 @@ public class Frequencer implements FrequencerInterface{
         try {
             frequencerObject = new Frequencer();
             frequencerObject.setSpace("Hi Ho Hi Ho".getBytes());
+            // frequencerObject.setSpace("a".getBytes());
             frequencerObject.printSuffixArray(); // you may use this line for DEBUG
             /* Example from "Hi Ho Hi Ho"
              0: Hi Ho
@@ -418,6 +337,7 @@ public class Frequencer implements FrequencerInterface{
              */
             
             frequencerObject.setTarget("H".getBytes());
+            // frequencerObject.setTarget("v".getBytes());
             //
             // ****  Please write code to check subByteStartIndex, and subByteEndIndex
             
